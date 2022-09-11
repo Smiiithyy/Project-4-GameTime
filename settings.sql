@@ -1,0 +1,3 @@
+CREATE DATABASE finder;
+CREATE USER finduser WITH PASSWORD 'sloane';
+GRANT ALL PRIVILEGES ON DATABASE finder TO finduser;

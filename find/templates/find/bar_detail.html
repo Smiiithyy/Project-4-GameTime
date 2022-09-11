@@ -1,0 +1,17 @@
+<h2>{{ bar.bar_name }} <a href="">(edit)</a></h2>
+<h4>{{ bar.address }}</h4>
+<h4>{{bar.city}}</h4>
+<h4>{{bar.state}}</h4>
+
+<h3>Comments</h3>
+<ul>
+  {% for comment in bar.comment.all %}
+  <li>
+    <h5>{{ comment.name }}-{{ comment.comment }} <button><a href="">Edit</a></button></h6>
+    <a href="{% url 'comment_delete' pk=comment.pk %}">Delete</a>
+    
+  </li>
+  {% endfor %}
+</ul>
+
+<button><a href="{% url 'comment_create'%}">Add Comment</a></button>
