@@ -1,9 +1,0 @@
-<h2>Bars and Restaurants <a href="{% url 'bar_create' %}">(+)</a></h2>
-<ul>
-  {% for bar in bars %}
-  <li>
-    <img src={{bar.photo_url}} alt = "bar_image">
-    <a href="{% url 'bar_detail' pk=bar.pk %}">{{ bar.bar_name }}</a>
-  </li>
-  {% endfor %}
-</ul>
