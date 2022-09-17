@@ -2,14 +2,20 @@ import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import styled from 'styled-components'
+import NavBar from '../components/NavBar'
+import Button from 'react-bootstrap/Button'
+import { Modal } from 'bootstrap'
+
 
 
 const StyledForm = styled.form`
     display: flex;
     flex-direction: column;
+    align-self: start;
+
 `
 
-const CommentEdit = ({ setComment }) => {
+const CommentEdit = ({ setComment, updateCommentState }) => {
     let { id } = useParams()
     let navigate = useNavigate()
     
@@ -27,7 +33,12 @@ const CommentEdit = ({ setComment }) => {
     const handleSubmit = (e) => {
         e.preventDefault()
         console.log(formData)
-        axios.put(`http://localhost:8000/comments/${id}`, formData )
+        console.log(id)
+        axios.put(`http://localhost:8000/comments/${id}`, formData, {
+        headers: {
+        "Content-Type" : "multipart/form-data" 
+    },
+})
         .then(res =>  {
 
             setFormData(initialState)
@@ -44,23 +55,47 @@ const CommentEdit = ({ setComment }) => {
         })
     }, [])
 
+    const deleteComment = (id) => {
+        console.log(id)
+        axios.delete(`http://localhost:8000/comments/${id}`)
+        .then(res => {
+            console.log(res)
+            updateCommentState(id)
+        
+        })
+        navigate('/bars', { replace: true })
+    }
+
+
+
 
 
   return (
 
+<div>
+<NavBar/>
+       <h1 className="header">Edit or Delete Comment</h1>   
 
         <StyledForm onSubmit={handleSubmit}>
             <div>
-                <label htmlFor='name'>Name</label>
+                <label htmlFor='name'>Name: </label>
                 <input id='name' name='name' type='text' onChange={handleChange} />
             </div>
             <div>
-                <label htmlFor='comment'>Comment</label>
+                <label htmlFor='comment'>Comment: </label>
                 <input id='comment' name='comment' type='text' onChange={handleChange} />
             </div>
-            <input type='submit' value='Edit Item' />
-            
+            <div className="buttons">
+            <Button variant="primary" type='submit' value='Edit Item'>EDIT</Button>
+            <Button variant="danger" onClick = {() => deleteComment(id)}>DELETE</Button>
+            </div>
         </StyledForm>
+
+
+
+        
+
+</div>
   )
 }
 

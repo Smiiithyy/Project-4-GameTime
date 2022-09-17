@@ -2,18 +2,19 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
+import NavBar from '../components/NavBar'
 
 
-const StyledForm = styled.form`
-    display: flex;
-    flex-direction: column;
-    min-width: 250px;
-    max-width: 50vw;
-    align-items: baseline;
-    div input {
-        margin-right: 25px;
-    }
-`
+// const StyledForm = styled.form`
+//     display: flexbox;
+//     flex-direction: column;
+//     min-width: 250px;
+//     max-width: 50vw;
+//     align-items: baseline;
+//     div input {
+//         margin-right: 25px;
+//     }
+// `
 
 const NewBar = ({addBar}) => {
 
@@ -48,8 +49,10 @@ const NewBar = ({addBar}) => {
     }
 
   return (
-      <StyledForm onSubmit={handleSubmit}>
-        <h1> Create new Item</h1>
+    <div>
+    <NavBar />
+      <form onSubmit={handleSubmit}>
+        <h1> Add a New Bar</h1>
             <div>
                 <label htmlFor='bar_name'>Bar Name</label>
                 <input id='bar_name' name='name' type='text' onChange={handleChange} />
@@ -71,7 +74,8 @@ const NewBar = ({addBar}) => {
                 <input id='state' name='type' type='text'  onChange={handleChange}/>
             </div>
             <input type='submit' value='Create Item' />
-    </StyledForm>
+    </form>
+    </div>
   )
 }
 

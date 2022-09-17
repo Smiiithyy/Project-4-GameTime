@@ -16,13 +16,16 @@ const StyledForm = styled.form`
     /* } */
 `
 
-const NewComment = (id) => {
+const NewGame = (id) => {
 
     const initialState = {
-        name:'',
-        comment: '',
-        bar_id: id.id,
-        image: [],
+        sport:'',
+        gametime: '',
+        teamOne: '',
+        teamTwo: '',
+        timeofpost: [],
+        bar_id: id.id
+
 
 
     }
@@ -37,19 +40,12 @@ const NewComment = (id) => {
         setFormData({...formData, [e.target.id] : e.target.value})
     }
 
-    const handleImage = (e) => {
-        console.log(formData)
-        setFormData({...formData, [e.target.id]: e.target.files[0]})
-        console.log(e.target.files[0])
-    }
+
 
     const handleSubmit = (e) => {
         e.preventDefault()
         console.log(formData)
-        axios.post(`http://localhost:8000/comments/`, formData, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
+        axios.post(`http://localhost:8000/games/`, formData, {
         } )
         .then(res =>  {
             setFormData(initialState)
@@ -60,24 +56,27 @@ const NewComment = (id) => {
     }
 
   return (
+
       <StyledForm onSubmit={handleSubmit}>
-        <h1> Create new Item</h1>
-        <div>
-                
-                <input id='' name='bar_id' type='hidden' value={id.id} />
+        <h1> Add New Game Time</h1>
+      
+            <div>
+                <label htmlFor='sport'>Sport</label>
+                <input id='sport' name='sport' type='text' onChange={handleChange} />
             </div>
             <div>
-                <label htmlFor='name'>Name</label>
-                <input id='name' name='name' type='text' onChange={handleChange} />
+                <label htmlFor='gametime'>Game time</label>
+                <input id='gametime' name='gametime' type='text' onChange={handleChange}/>
             </div>
             <div>
-                <label htmlFor='comment'>Comment</label>
-                <input id='comment' name='comment' type='text' onChange={handleChange}/>
+                <label htmlFor='teamOne'>Team One</label>
+                <input id='teamOne' name='teamOne' type='text' onChange={handleChange}/>
             </div>
             <div>
-                <label htmlFor='image'>Image</label>
-                <input id='image' name='image' type='file' onChange={handleImage}/>
+                <label htmlFor='teamTwo'>Team Two</label>
+                <input id='teamTwo' name='teamTwo' type='text' onChange={handleChange}/>
             </div>
+
             <input className="inputbutton" type='submit' value='Create Item' />
     </StyledForm>
 
@@ -85,4 +84,4 @@ const NewComment = (id) => {
   )
 }
 
-export default NewComment
+export default NewGame

@@ -8,6 +8,11 @@ import BarLists from './pages/BarLists';
 import NewBar from './pages/NewBar';
 import CommentEdit from './pages/CommentEdit';
 import BarView from './pages/BarDetail';
+import Home from './pages/Home';
+import GameDetails from './pages/GamesDetail'
+
+
+
 
 
 function App() {
@@ -36,17 +41,23 @@ function App() {
 
   return (
     <div className="App">
+      <div className="border">
       <header className="App-header">
+      
       <Routes>
+        <Route path='/' element={<Home/>}></Route>
         <Route path ="/bars" element = {<BarLists bars={bars} />} />
         <Route path ="/bar/new" element = {<NewBar addBar = {addBar}/>} />
-        <Route path = "/comments/edit/:id" element = {<CommentEdit setComment = {setComments}/>} ></Route>
+        <Route path = "/comments/:id" element = {<CommentEdit setComment = {setComments} updateCommentState = {updateCommentState} bars={bars}/>} ></Route>
         <Route path="/bar/:id" element={<BarView bars = {bars}/>}/>
+        <Route path ="/games/" element={<GameDetails bars={bars}/>}/>
+        {/* <Route path ="/games/" element={<GameDetails bars={bars}/>}/> */}
 
         {/* <Route path = "/bars/:id/" element ={<BarDetails bars={bars} setBars={setBars} />} /> */}
       </Routes>
       
       </header>
+      </div>
     </div>
   );
 }
